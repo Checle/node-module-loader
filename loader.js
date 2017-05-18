@@ -45,7 +45,7 @@ export default class Loader extends RegisterLoader {
     }
 
     if (module !== null) try {
-      return Module._resolveFilename(key, module)
+      return Module._resolveFilename(key, module) || undefined
     } catch (e) { }
 
     if (key[0] === '.') return path.resolve(key, parentKey)
