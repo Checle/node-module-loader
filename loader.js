@@ -58,12 +58,12 @@ export default class Loader extends RegisterLoader {
     global.System = this
 
     let lastModuleIsRegistered = moduleIsRegistered
-    let defaultExport
+    let exports
     let isRegistered
 
     try {
       moduleIsRegistered = false
-      defaultExport = require(key)
+      exports = require(key)
     } finally {
       global.System = currentSystem
       isRegistered = moduleIsRegistered
@@ -73,7 +73,11 @@ export default class Loader extends RegisterLoader {
     if (isRegistered) {
       processAnonRegister()
     } else {
-      return new ModuleNamespace({default: defaultExport})
+      if (typeof exports !== 'object') {
+        exports = {default: exports}
+      }
+
+      return new ModuleNamespace(exports)
     }
   }
 
