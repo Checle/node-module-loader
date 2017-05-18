@@ -52,7 +52,7 @@ export default class Loader extends RegisterLoader {
     else return path.resolve(key)
   }
 
-  [RegisterLoader.instantiate] (key) {
+  [RegisterLoader.instantiate] (key, processAnonRegister) {
     let currentSystem = global.System
 
     global.System = this
@@ -70,7 +70,9 @@ export default class Loader extends RegisterLoader {
       moduleIsRegistered = lastModuleIsRegistered
     }
 
-    if (!isRegistered) {
+    if (isRegistered) {
+      processAnonRegister()
+    } else {
       return new ModuleNamespace({default: defaultExport})
     }
   }
