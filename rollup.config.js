@@ -7,6 +7,7 @@ export default {
   entry: 'index.js',
   dest: 'dist/index.js',
   format: 'cjs',
+  exports: 'named',
 
   plugins: [
     nodeResolve(),

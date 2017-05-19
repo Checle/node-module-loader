@@ -1,6 +1,6 @@
 {
   "name": "@record/node-module-loader",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "description": "ES module loader with native NodeJS module resolution",
   "main": "dist/index.js",
   "scripts": {
