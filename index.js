@@ -4,6 +4,7 @@ import path from 'path'
 import {Loader, ModuleNamespace} from 'es-module-loader/core/loader-polyfill.js'
 
 export * from 'es-module-loader/core/loader-polyfill.js'
+export {RegisterLoader}
 
 const BASE_MODULE = Symbol()
 
