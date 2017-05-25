@@ -60,18 +60,18 @@ export class NodeLoader extends RegisterLoader {
 
   [RegisterLoader.instantiate] (key, processAnonRegister) {
     let currentSystem = global.System
-
-    global.System = this
-
     let lastModuleIsRegistered = moduleIsRegistered
     let exports
     let isRegistered
+
+    global.System = this
 
     try {
       moduleIsRegistered = false
       exports = require(key)
     } finally {
       global.System = currentSystem
+
       isRegistered = moduleIsRegistered
       moduleIsRegistered = lastModuleIsRegistered
     }
