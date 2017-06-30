@@ -1,13 +1,14 @@
 {
   "name": "@record/node-module-loader",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "ES module loader with native NodeJS module resolution",
   "main": "dist/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "test": "tap dist/**/test/*.js dist/**/test.js | tap-spec",
     "lint": "eslint src/**/*.js",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "watch": "rollup -wc"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^4.0.0",
     "tap": "^10.3.2",
     "tap-spec": "^4.1.1"
   },

@@ -9,6 +9,13 @@ export {RegisterLoader}
 const BASE_MODULE = Symbol()
 
 let moduleIsRegistered = false
+let rootModule = module
+
+while (rootModule.parent != null) {
+  rootModule = rootModule.parent
+}
+
+var hasOwnProperty = Function.prototype.call.bind(Object.prototype.hasOwnProperty)
 
 export class NodeLoader extends RegisterLoader {
   constructor (baseKey) {
@@ -35,12 +42,14 @@ export class NodeLoader extends RegisterLoader {
     let baseModule = this[BASE_MODULE]
     let baseKey = baseModule.id
 
-    if (parentKey == null) parentKey = baseKey
+    if (parentKey == null) {
+      parentKey = baseKey
+    }
 
     let module = baseModule
 
     if (parentKey !== baseKey) {
-      if (require.cache.hasOwnProperty(parentKey)) {
+      if (hasOwnProperty(require, parentKey)) {
         module = require.cache[parentKey]
       } else {
         module = null
@@ -52,7 +61,9 @@ export class NodeLoader extends RegisterLoader {
     } catch (e) { }
 
     // Local import
-    if (key[0] === '.') return path.resolve(key, parentKey)
+    if (key[0] === '.') {
+      return path.resolve(path.dirname(parentKey), key)
+    }
 
     // Global import
     return path.normalize(key)
@@ -68,7 +79,7 @@ export class NodeLoader extends RegisterLoader {
 
     try {
       moduleIsRegistered = false
-      exports = require(key)
+      exports = rootModule.require(key)
     } finally {
       global.System = currentSystem
 
